@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - db
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=$MYSQL_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+      - WORDPRESS_DB_NAME=exampledb
+    volumes:
+      - ./html:/var/www/html
+      - ./upload.ini:/usr/local/etc/php/conf.d/upload.ini
+
+  db:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=exampledb
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    hostname: adminer
+    restart: always
+    ports:
+      - 8091:8080
+
+  redis:
+    image: redis:7.0.0-alpine
+    container_name: redis
+    hostname: redis
+    restart: always
