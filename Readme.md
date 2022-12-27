@@ -2,7 +2,7 @@
 
 ## 1. ติดตั้ง Wordpress
 ```
-git clone https://github.com/thanachaiTP/wordpress.git
+git clone https://github.com/thanachaiTP/wordpress.git -b wp-fpm
 cd wordpress
 cp env.example .env
 docker-compose up -d
