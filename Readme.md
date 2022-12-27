@@ -4,6 +4,7 @@
 ```
 git clone https://github.com/thanachaiTP/wordpress.git
 cd wordpress
+cp env.example .env
 docker-compose up -d
 ```
 
